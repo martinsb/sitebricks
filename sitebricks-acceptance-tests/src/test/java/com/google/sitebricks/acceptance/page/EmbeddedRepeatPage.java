@@ -14,15 +14,27 @@ import java.util.List;
  */
 public class EmbeddedRepeatPage {
 
-    private final List<WebElement> elements;
+    private final List<WebElement> continents;
+
+    private final List<WebElement> countries;
 
     public EmbeddedRepeatPage(WebDriver driver) {
-        elements = driver.findElements(By.xpath("//li[@class='item']"));
+        continents = driver.findElements(By.xpath("//li[@class='continent']/span[@class='title']"));
+
+        countries = driver.findElements(By.xpath("//li[@class='country']"));
     }
 
-    public List<String> getItems() {
+    public List<String> getContinents() {
+        return extractStrings(continents);
+    }
+
+    public List<String> getCountries() {
+        return extractStrings(countries);
+    }
+
+    private static List<String> extractStrings(List<WebElement> continents1) {
         List<String> items = new ArrayList<String>();
-        for (WebElement e : elements) {
+        for (WebElement e : continents1) {
             items.add(e.getText());
         }
         return items;
